@@ -149,35 +149,35 @@ function App() {
                             <button className="mb-3" onClick={checkLogin}>
                                 Check
                             </button>
-                            {isChecking && isChecked ? (
-                                <div
-                                    className={`alert alert-success alert-dismissible fade show`}
-                                    role="alert"
-                                >
-                                    logged in successfully~
-                                    <button
-                                        type="button"
-                                        className="btn-close"
-                                        data-bs-dismiss="alert"
-                                        aria-label="Close"
-                                    ></button>
-                                </div>
-                            ) : (
-                                <div
-                                    className={`alert alert-warning alert-dismissible fade show`}
-                                    role="alert"
-                                >
-                                    <strong>sorry bro</strong>, you need to
-                                    leave this holy land, 88~
-                                    <button
-                                        type="button"
-                                        className="btn-close"
-                                        data-bs-dismiss="alert"
-                                        aria-label="Close"
-                                    ></button>
-                                </div>
-                            )}
-
+                            <div
+                                className={`alert alert-success alert-dismissible fade ${
+                                    isChecking && isChecked ? "show" : ""
+                                }`}
+                                role="alert"
+                            >
+                                logged in successfully~
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="alert"
+                                    aria-label="Close"
+                                ></button>
+                            </div>
+                            <div
+                                className={`alert alert-warning alert-dismissible fade ${
+                                    isChecking && !isChecked ? "show" : ""
+                                }`}
+                                role="alert"
+                            >
+                                <strong>sorry bro</strong>, you need to leave
+                                this holy land, 88~
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="alert"
+                                    aria-label="Close"
+                                ></button>
+                            </div>
                             <hr />
                         </div>
                         <div className="col-lg-6">
