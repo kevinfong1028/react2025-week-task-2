@@ -49,3 +49,8 @@ body {
 .hide{
     display: none!important;
 }
+
+.rotate-unclockwise-90{
+    position: absolute;
+    transform: rotate(270deg)
+}

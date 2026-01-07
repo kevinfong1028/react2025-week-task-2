@@ -52,7 +52,7 @@ function App() {
             const res = await axios.post(url);
             console.log("checkLogin", res);
             res.data.success;
-        setIsChecking(true);
+            setIsChecking(true);
             if (res.data.success) {
                 setIsChecked(true);
                 getProducts();
@@ -62,6 +62,10 @@ function App() {
         } catch (error) {
             console.dir(error);
             setIsChecked(false);
+        } finally {
+            setTimeout(() => {
+                setIsChecking(false);
+            }, 2500);
         }
     };
 
@@ -145,39 +149,35 @@ function App() {
                             <button className="mb-3" onClick={checkLogin}>
                                 Check
                             </button>
-                            <br />
-                            isChecking:{String(isChecking)}
-                            <br />
-                            isChecked: {String(isChecked)}
-                            <div
-                                className={`alert alert-success alert-dismissible fade ${
-                                    isChecking && isChecked ? "show" : ""
-                                }`}
-                                role="alert"
-                            >
-                                logged in successfully~
-                                <button
-                                    type="button"
-                                    className="btn-close"
-                                    data-bs-dismiss="alert"
-                                    aria-label="Close"
-                                ></button>
-                            </div>
-                            <div
-                                className={`alert alert-warning alert-dismissible fade ${
-                                    isChecking && !isChecked ? "show" : ""
-                                }`}
-                                role="alert"
-                            >
-                                <strong>sorry bro</strong>, you need to leave
-                                this holy land, 88~
-                                <button
-                                    type="button"
-                                    className="btn-close"
-                                    data-bs-dismiss="alert"
-                                    aria-label="Close"
-                                ></button>
-                            </div>
+                            {isChecking && isChecked ? (
+                                <div
+                                    className={`alert alert-success alert-dismissible fade show`}
+                                    role="alert"
+                                >
+                                    logged in successfully~
+                                    <button
+                                        type="button"
+                                        className="btn-close"
+                                        data-bs-dismiss="alert"
+                                        aria-label="Close"
+                                    ></button>
+                                </div>
+                            ) : (
+                                <div
+                                    className={`alert alert-warning alert-dismissible fade show`}
+                                    role="alert"
+                                >
+                                    <strong>sorry bro</strong>, you need to
+                                    leave this holy land, 88~
+                                    <button
+                                        type="button"
+                                        className="btn-close"
+                                        data-bs-dismiss="alert"
+                                        aria-label="Close"
+                                    ></button>
+                                </div>
+                            )}
+
                             <hr />
                         </div>
                         <div className="col-lg-6">
@@ -221,28 +221,35 @@ function App() {
                             <h2>Item Detail</h2>
                             {chosenProduct ? (
                                 <div className="card mb-3">
+                                    <p className="h3 fw-bold">
+                                        {chosenProduct.title}
+                                    </p>
                                     <img
                                         src={chosenProduct.imageUrl}
-                                        className="card-img-top"
+                                        className="card-img-top mx-auto"
                                         style={{ width: "300px" }}
                                         alt="picture"
                                     />
                                     <div className="card-body">
                                         <h5 className="card-title">
                                             <span className="fs-3">
+                                                Roast:
                                                 {chosenProduct.category}
                                             </span>
+                                            <p className="card-text text-success">
+                                                {chosenProduct.content}
+                                            </p>
                                         </h5>
                                         <p className="card-text">
-                                            Description：
                                             {chosenProduct.description}
                                         </p>
-                                        <p className="card-text">
-                                            Diameter：
-                                            {chosenProduct.content.substring(3)}
+                                        <p className="card-text text-decoration-line-through text-secondary">
+                                            Original Price：
+                                            {chosenProduct.origin_price}{" "}
+                                            {chosenProduct.unit}
                                         </p>
-                                        <p className="card-text">
-                                            Price：{chosenProduct.description}{" "}
+                                        <p className="card-text text-primary fs-3 fw-bold">
+                                            Price：{chosenProduct.price}{" "}
                                             {chosenProduct.unit}
                                         </p>
                                         <h5>more photos...</h5>
@@ -266,7 +273,11 @@ function App() {
                                 </div>
                             ) : (
                                 <h3 className="container">
-                                    please chose one item
+                                    <i className="bi bi-hand-index-thumb rotate-unclockwise-90"></i>
+                                    <span className="ms-3 ps-4">
+                                        please select the item on the left
+                                        first.
+                                    </span>
                                 </h3>
                             )}
                         </div>
